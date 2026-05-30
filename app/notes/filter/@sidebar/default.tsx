@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import { NoteTag } from '@/types/note';
+import { NOTE_TAGS } from '@/types/note';
 
 import css from './SidebarNotes.module.css';
 
-const tags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
-
-const SidebarNotes = async () => {
+const SidebarNotes = () => {
   return (
     <ul className={css.menuList}>
       <li className={css.menuItem}>
@@ -16,7 +14,7 @@ const SidebarNotes = async () => {
           All notes
         </Link>
       </li>
-      {tags.map(tag => (
+      {NOTE_TAGS.map(tag => (
         <li
           key={tag}
           className={css.menuItem}

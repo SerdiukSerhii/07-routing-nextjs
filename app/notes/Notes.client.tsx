@@ -13,14 +13,18 @@ import { fetchNotes } from '@/lib/api';
 
 import css from './NotesPage.module.css';
 
-function NotesClient() {
+type Props = {
+  tag?: string;
+};
+
+function NotesClient({ tag }: Props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const { data, isFetching } = useQuery({
-    queryKey: ['notes', { search: searchQuery, page: currentPage }],
-    queryFn: () => fetchNotes(searchQuery, currentPage),
+    queryKey: ['notes', { search: searchQuery, page: currentPage, tag }],
+    queryFn: () => fetchNotes(searchQuery, currentPage, tag),
     placeholderData: keepPreviousData,
   });
 
