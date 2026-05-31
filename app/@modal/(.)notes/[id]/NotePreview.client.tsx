@@ -3,13 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import css from './ModalPreview.module.css';
+import css from './NotePreview.module.css';
 
 type Props = {
   children: React.ReactNode;
 };
 
-const ModalPreview = ({ children }: Props) => {
+const NotePreview = ({ children }: Props) => {
   const router = useRouter();
 
   const close = () => router.back();
@@ -36,4 +36,4 @@ const ModalPreview = ({ children }: Props) => {
   );
 };
 
-export default ModalPreview;
+export default NotePreview;

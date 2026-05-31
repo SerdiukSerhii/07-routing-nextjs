@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchNoteById } from '@/lib/api';
+import NoteRenderDetails from '@/components/NoteRenderDetails/NoteRenderDetails';
 
 import css from './NoteDetails.module.css';
 
@@ -26,28 +27,15 @@ const NoteDetailsClient = () => {
 
   if (error || !note) return <p>Something went wrong.</p>;
 
-  const formattedDate = note.updatedAt
-    ? `Updated at: ${note.updatedAt}`
-    : `Created at: ${note.createdAt}`;
-
   return (
     <section>
       <button
         onClick={goBack}
         className={css.backButton}
       >
-        Back
+        Go Back
       </button>
-      <div className={css.container}>
-        <div className={css.item}>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
-          </div>
-          <p className={css.content}>{note.content}</p>
-          <p className={css.tag}>{note.tag}</p>
-          <p className={css.date}>{formattedDate}</p>
-        </div>
-      </div>
+      <NoteRenderDetails note={note} />
     </section>
   );
 };

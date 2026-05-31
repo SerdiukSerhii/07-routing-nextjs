@@ -1,35 +1,21 @@
 import { fetchNoteById } from '@/lib/api';
-import ModalPreview from '@/components/ModalPreview/ModalPreview';
+import NotePreview from './NotePreview.client';
+import NoteRenderDetails from '@/components/NoteRenderDetails/NoteRenderDetails';
 
-import css from './NotePreview.module.css';
-
-interface NotePreviewProps {
+interface NotePageDetailsProps {
   params: Promise<{ id: string }>;
 }
 
-const NotePreview = async ({ params }: NotePreviewProps) => {
+const NotePageDetails = async ({ params }: NotePageDetailsProps) => {
   const { id } = await params;
 
   const note = await fetchNoteById(id);
 
-  const formattedDate = note.updatedAt
-    ? `Updated at: ${note.updatedAt}`
-    : `Created at: ${note.createdAt}`;
-
   return (
-    <ModalPreview>
-      <div className={css.container}>
-        <div className={css.item}>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
-          </div>
-          <p className={css.content}>{note.content}</p>
-          <p className={css.tag}>{note.tag}</p>
-          <p className={css.date}>{formattedDate}</p>
-        </div>
-      </div>
-    </ModalPreview>
+    <NotePreview>
+      <NoteRenderDetails note={note} />
+    </NotePreview>
   );
 };
 
-export default NotePreview;
+export default NotePageDetails;
