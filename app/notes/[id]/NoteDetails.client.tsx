@@ -1,14 +1,17 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { fetchNoteById } from '@/lib/api';
 import NoteRenderDetails from '@/components/NoteRenderDetails/NoteRenderDetails';
 
 import css from './NoteDetails.module.css';
 
-const NoteDetailsClient = () => {
-  const { id } = useParams<{ id: string }>();
+type NotePreviewProps = {
+  id: string;
+};
+
+const NoteDetailsClient = ({ id }: NotePreviewProps) => {
   const router = useRouter();
 
   const goBack = () => router.back();

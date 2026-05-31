@@ -1,38 +1,38 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { fetchNoteById } from '@/lib/api';
+import NoteRenderDetails from '@/components/NoteRenderDetails/NoteRenderDetails';
+import Modal from '@/components/Modal/Modal';
 
-import css from './NotePreview.module.css';
-
-type Props = {
-  children: React.ReactNode;
+type NotePreviewProps = {
+  id: string;
 };
 
-const NotePreview = ({ children }: Props) => {
+const NotePreview = ({ id }: NotePreviewProps) => {
   const router = useRouter();
 
   const close = () => router.back();
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
+  const {
+    data: note,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['note', id],
+    queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
+  });
+
+  if (isLoading) return <p>Loading, please wait..</p>;
+
+  if (error || !note) return <p>Something went wrong.</p>;
 
   return (
-    <div className={css.overlay}>
-      <div className={css.modal}>
-        {children}
-        <button
-          onClick={close}
-          className={css.close}
-        >
-          Close
-        </button>
-      </div>
-    </div>
+    <Modal onClose={close}>
+      <NoteRenderDetails note={note} />
+    </Modal>
   );
 };
 
