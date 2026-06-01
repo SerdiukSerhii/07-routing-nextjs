@@ -23,17 +23,17 @@
 
 .closeBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 0px;
+  right: 0px;
 
   display: inline-flex;
   align-items: center;
 
   margin: 16px;
-  padding: 8px 16px;
+  padding: 4px 8px;
   background-color: #5ca9e9;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 2px;
   cursor: pointer;
   color: #000000;
   transition: background-color 0.2s;
